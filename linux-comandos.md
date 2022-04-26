@@ -61,61 +61,61 @@ du -hs *  >> /root/ok.txt 2>> /root/erro.txt
 
 ## Filtros de conteudo.
 
-**grep** - Pesquisa em arquivos ou em sua entrada padrão por uma sequência de caracteres informada.
-• grep <opções> [string_ou_regex_desejada] [arquivo ou caminho]
-• Ex.: grep “root” /etc/passwd
-• Ex.: cat /etc/passwd | grep “root”
+**grep** - Pesquisa em arquivos ou em sua entrada padrão por uma sequência de caracteres informada.  
+• grep <opções> [string_ou_regex_desejada] [arquivo ou caminho]  
+• Ex.: grep “root” /etc/passwd  
+• Ex.: cat /etc/passwd | grep “root”  
 • Os dois comandos acima apresentam o mesmo resultado (procura pela string “root” dentro do
 arquivo “/etc/passwd”), porém, no primeiro exemplo especificamos o arquivo e no segundo exemplo
-filtramos a sua entrada padrão.
-• Com o comando “grep” (ou “egrep”), também podemos utilizar expressões regulares, caracteres
-curinga e “meta caracteres” (expressões regulares), criando inúmeras possibilidades.
+filtramos a sua entrada padrão.  
+• Com o comando “grep” (ou “egrep”), também podemos utilizar expressões regulares, caracteres  
+curinga e “meta caracteres” (expressões regulares), criando inúmeras possibilidades.  
 • Meta caracteres: São símbolos e caracteres literais com função específica (mais detalhes no slide
-sobre expressão regular).
+sobre expressão regular).  
 
 Vamos supor que desejamos listar apenas os subdiretórios de um determinado
-diretório... O que fazer?
-• Ex.: ls -l /lib | grep ^d
+diretório... O que fazer?  
+• Ex.: ls -l /lib | grep ^d  
 • No caso acima, utilizamos um meta caractere (o “^”, que representa o início da linha). Portanto, o
-“grep” filtrou toda linha que começa com “d”.
-• Ex.: ls -l /lib | grep d
+“grep” filtrou toda linha que começa com “d”.  
+• Ex.: ls -l /lib | grep d  
 • Já neste exemplo, o “grep” filtraria todas as linhas que contém a letra “d” em qualquer parte da linha,
-ou seja, o objetivo não seria alcançado.
-• Agora vamos supor que desejamos listar todo o conteúdo, exceto subdiretórios... Aí
-está um grande recurso do **“grep”**:
-• Ex.: ls -l /lib | grep -v ^d
+ou seja, o objetivo não seria alcançado.  
+• Agora vamos supor que desejamos listar todo o conteúdo, exceto subdiretórios...   Aí
+está um grande recurso do **“grep”**:  
+• Ex.: ls -l /lib | grep -v ^d  
 • O parâmetro **“-v”** exibe o inverso do que foi solicitado, ou seja, vamos visualizar todo o conteúdo,
-exceto diretórios.
+exceto diretórios.  
 
 Uma opção muito utilizada é o **“-r”**, que nos permite realizar a busca de uma
-determinada string de forma recursiva:
-• Ex.: grep -r root /etc
-• Lembre-se que podemos concatenar comandos, caso a saída seja extensa.
-• Ex.: grep -r root /etc | more
-• Ex.: grep -r root /etc | less
+determinada string de forma recursiva:  
+• Ex.: grep -r root /etc  
+• Lembre-se que podemos concatenar comandos, caso a saída seja extensa.  
+• Ex.: grep -r root /etc | more  
+• Ex.: grep -r root /etc | less  
 • Podemos verificar apenas os arquivos e diretórios que foram criados/modificados
-em 2022:
-• Ex.: ls -l /etc | grep 2022
+em 2022:  
+• Ex.: ls -l /etc | grep 2022  
 • Agora desejamos visualizar apenas os arquivos criados/modificados em 2021:
-• Ex.: ls -l /etc | grep -v ^d | grep 2021
+• Ex.: ls -l /etc | grep -v ^d | grep 2021  
 
 Também é importante sabermos que além do **“grep”**, temos:
 • **egrep** é o mesmo que “grep -E” (Interpreta o padrão de busca como uma expressão regular
-extendida);
-• **zgrep** Realiza a busca dentro de arquivos compactados com o padrão “gzip”;
+extendida);  
+• **zgrep** Realiza a busca dentro de arquivos compactados com o padrão “gzip”;  
 
 ## Filtros de comando WC
 
-O comando **“wc”** (acrônimo de “word count”) realiza a contagem da quantidade de linhas, palavras ou caracteres de um determinado arquivo ou entrada padrão:
-• Ex.: ls -l /etc | wc -l
-• No exemplo acima, o “wc” tem como entrada padrão a listagem do diretório “/etc”. O parâmetro “-l”
-realiza a contagem de linhas.
-• Ex.: cat /etc/passwd | wc -l
-• Ex.: wc -l /etc/passwd
-• Ambos acima realizam a contagem de linhas do arquivo “/etc/passwd”.
+O comando **“wc”** (acrônimo de “word count”) realiza a contagem da quantidade de linhas, palavras ou caracteres de um determinado arquivo ou entrada padrão:  
+• Ex.: ls -l /etc | wc -l  
+• No exemplo acima, o “wc” tem como entrada padrão a listagem do diretório “/etc”. O parâmetro “-l”  
+realiza a contagem de linhas.  
+• Ex.: cat /etc/passwd | wc -l  
+• Ex.: wc -l /etc/passwd  
+• Ambos acima realizam a contagem de linhas do arquivo “/etc/passwd”.  
 • Vamos supor que desejamos saber a quantidade de subdiretórios contidos em
 “/etc”
-• Ex.: ls -l /etc | grep ^d | wc -l
+• Ex.: ls -l /etc | grep ^d | wc -l  
 
 Dentre as principais opções do comando “wc”, temos:
 • “-l”  Contabiliza a quantidade de linhas;
@@ -130,36 +130,35 @@ caracteres, utilizamos o “wc” sem parâmetros:
 
 O comando “tr” traduz e/ou deleta caracteres da entrada padrão e exibe o
 resultado como saída:
-• Ex.: cat /etc/passwd | tr : ;
-• No exemplo acima, o “tr” irá “traduzir” (converter) todos os caracteres “:” para “;”.
+• Ex.: cat /etc/passwd | tr : ;  
+• No exemplo acima, o “tr” irá “traduzir” (converter) todos os caracteres “:” para “;”.  
 
 Ex.: ls -l /etc | tr -s “ ”
 • O “tr” também “comprime” (squeeze) caracteres repetidos. No exemplo acima, todos os locais que
-houver mais de um espaço são removidos (execute em sua VM para testar)
+houver mais de um espaço são removidos (execute em sua VM para testar)  
 
 ## Filtros comando diff
-diff Compara o conteúdo de dois arquivos e exibe as diferenças:
-• diff <opções> [arquivo1] [arquivo2]
-• Ex.: diff /etc/yp.conf /etc/yp.conf-bkp
+diff Compara o conteúdo de dois arquivos e exibe as diferenças:  
+• diff <opções> [arquivo1] [arquivo2]  
+• Ex.: diff /etc/yp.conf /etc/yp.conf-bkp  
 
 • Comando muito útil para compararmos as modificações realizadas em um arquivo
 de configuração com o arquivo original ou backup, caso o serviço apresente
-problemas após as modificações.
+problemas após as modificações.  
 
 ## Filtros comando sort
 
-O comando “sort” ordena alfabeticamente um determinado arquivo ou entrada
-padrão:
-• Ex.: cat /etc/passwd | sort
-• Ex.: sort /etc/passwd
+O comando “sort” ordena alfabeticamente um determinado arquivo ou entrada padrão:  
+• Ex.: cat /etc/passwd | sort  
+• Ex.: sort /etc/passwd  
 • Ambos acima enviam para a saída padrão (tela) o conteúdo do arquivo “/etc/passwd” em ordem
-alfabética.
+alfabética.  
 • Caso seja feita uma auditoria no setor de TI, solicitando uma lista com todos os
-usuários que possuem “shell válido” no Linux...
-• Ex.: cat /etc/passwd | grep “/bin/bash” | cut -d ‘:’ -f 1 | sort
-• Ex.: sort /etc/passwd | grep “/bin/bash” | cut -d ‘:’ -f 1
+usuários que possuem “shell válido” no Linux...  
+• Ex.: cat /etc/passwd | grep “/bin/bash” | cut -d ‘:’ -f 1 | sort  
+• Ex.: sort /etc/passwd | grep “/bin/bash” | cut -d ‘:’ -f 1  
 • Ambos acima enviam para a saída padrão (tela), apenas o “login” dos usuários que possuem “shell
-válido”.
+válido”.  
 
 ## O famigerado AWK
 
@@ -297,33 +296,33 @@ https://linuxconfig.org/learning-linux-commands-sed
 ## Compactadores - ZIP.
 
 **zip**  Permite compactar arquivos no formato “zip” (Padrão PKZIP e Winzip
-    utilizado no Windows).
-    • zip <opções> [caminho_do_arquivo.zip] [arquivos_a_ser_compactados]
-    • Ex.: zip -r dados.zip /etc/
+    utilizado no Windows).  
+    • zip <opções> [caminho_do_arquivo.zip] [arquivos_a_ser_compactados]  
+    • Ex.: zip -r dados.zip /etc/  
     • O comando acima realiza a compactação do diretório “/etc” e todo o seu conteúdo, dentro do novo
-    arquivo de nome “dados.zip”.
+    arquivo de nome “dados.zip”.  
     • O parâmetro “-r” permite compactar de forma recursiva.
     • unzip  Permite descompactar arquivos no formato “zip” ou apenas listar o
-    conteúdo contido no arquivo compactado (parâmetro “-l”).
+    conteúdo contido no arquivo compactado (parâmetro “-l”).  
     • unzip <opções> [caminho_do_arquivo.zip] <opções> <destino>
-    • Ex.: unzip dados.zip
+    • Ex.: unzip dados.zip  
     • Descompacta o conteúdo de “dados.zip” no diretório corrente.
     • Ex.: unzip dados.zip -d /root/bkp-etc/
-    • Descompacta o conteúdo de “dados.zip” no diretório “/root/bkp-etc”.
+    • Descompacta o conteúdo de “dados.zip” no diretório “/root/bkp-etc”.  
 
 
 ## Compactadores - TAR.
 
-tar - Permite dois tipos de tarefas:  
-• Empacotar dados em um arquivo sem realizar compactação “efetivamente”;  
-• Compactar/Descompactar arquivos utilizando o padrão “gzip”.
+tar - Permite dois tipos de tarefas:    
+• Empacotar dados em um arquivo sem realizar compactação “efetivamente”;    
+• Compactar/Descompactar arquivos utilizando o padrão “gzip”.  
 • O objetivo de empacotar é viabilizar a distribuição de pacotes de instalação de Softwares, publicando
-apenas um arquivo ao invés dos diversos arquivos necessários para a instalação do Software.  
+apenas um arquivo ao invés dos diversos arquivos necessários para a instalação do Software.    
 • Ao compactar/descompactar através do comando “tar”, podemos utilizar três tipos de
-compactadores:  
-• “gzip”  extensão “tar.gz” (mais utilizado e eficiente na compressão);  
-• “bzip2”  extensão “tar.bz2”  
-• “compress”  extensão “tar.Z”  
+compactadores:    
+• “gzip”  extensão “tar.gz” (mais utilizado e eficiente na compressão);   
+• “bzip2”  extensão “tar.bz2”    
+• “compress”  extensão “tar.Z”    
 
 **tar Sintaxe:**
 • tar <opções> [arquivo] <opções || caminho_a_ser_compactado>
@@ -334,11 +333,11 @@ possibilidades de uso:
 • t - Lista o conteúdo de um arquivo compactado;  
 • v - Exibe na tela o que está sendo compactado ou descompactado;  
 • p - Preserva as permissões do arquivo de origem;  
-• r - Acrescenta arquivos dentro do pacote “tar”;  
-**• z - Modo de operação com o comando compactador “gzip”;**   
-**• Z - Modo de operação com o comando compactador “compress”;** 
-**• j - Modo de operação com o comando compactador “bzip2”.**  
-**• f - Modo de operação com arquivos.**
+• r - Acrescenta arquivos dentro do pacote “tar”;    
+• z - Modo de operação com o comando compactador “gzip”;    
+• Z - Modo de operação com o comando compactador “compress”;  
+• j - Modo de operação com o comando compactador “bzip2”.   
+• f - Modo de operação com arquivos.
 
 **tar** - Sintaxe para compactar (com o compactador “gzip”):
 • Ex.: tar czf arquivo.tar.gz /etc/
