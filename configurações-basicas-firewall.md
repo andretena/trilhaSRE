@@ -35,7 +35,7 @@ Uma tabela contém cadeias, e as cadeias contém regras, como podemos ver a segu
 
 ## Divisões das cadeias em tabelas
 
-**Tabela Filter**: Cadeias INPUT, OUTPUT, FORWARD
+**Tabela Filter**: <p>Cadeias INPUT, OUTPUT, FORWARD</p>
 **Tabela NAT**: Cadeias PREROUTING, OUTPUT, POSTROUTING
 **Tabela Mangle**: Cadeias PREROUTING, OUTPUT, POSTROUTING, INPUT, FORWARD.
 **Tabela Raw**: Cadeias PREROUTING E OUTPUT
@@ -52,3 +52,14 @@ As regras são organizadas em grupos denominados cadeias **(chains)**, que por s
 **POSTROUTING** Altera pacotes de rede após o roteamento, usado para SNAT **(Source NAT)**
 
 
+## CAMADA OSI
+
+| Camada osi |            
+|  --------  |
+|7 Aplicação |
+|6 Apresentação|
+|5 Sessão |
+|4 transporte |
+|3 Rede |
+|2 Link de dados|
+|1 Fisica|
