@@ -314,31 +314,31 @@ https://linuxconfig.org/learning-linux-commands-sed
 
 ## Compactadores - TAR.
 
-tar - Permite dois tipos de tarefas:
-• Empacotar dados em um arquivo sem realizar compactação “efetivamente”;
+tar - Permite dois tipos de tarefas:  
+• Empacotar dados em um arquivo sem realizar compactação “efetivamente”;  
 • Compactar/Descompactar arquivos utilizando o padrão “gzip”.
 • O objetivo de empacotar é viabilizar a distribuição de pacotes de instalação de Softwares, publicando
-apenas um arquivo ao invés dos diversos arquivos necessários para a instalação do Software.
+apenas um arquivo ao invés dos diversos arquivos necessários para a instalação do Software.  
 • Ao compactar/descompactar através do comando “tar”, podemos utilizar três tipos de
-compactadores:
-• “gzip”  extensão “tar.gz” (mais utilizado e eficiente na compressão);
-• “bzip2”  extensão “tar.bz2”
-• “compress”  extensão “tar.Z”
+compactadores:  
+• “gzip”  extensão “tar.gz” (mais utilizado e eficiente na compressão);  
+• “bzip2”  extensão “tar.bz2”  
+• “compress”  extensão “tar.Z”  
 
 **tar Sintaxe:**
 • tar <opções> [arquivo] <opções || caminho_a_ser_compactado>
 • No próximo slide teremos exemplos de sintaxe. Portanto, vamos conhecer as principais opções e
-possibilidades de uso:
-• c - Compacta ou empacota dados em um novo arquivo;
-• x - Extrai o conteúdo de um arquivo compactado;
-• t - Lista o conteúdo de um arquivo compactado;
-• v - Exibe na tela o que está sendo compactado ou descompactado;
-• p - Preserva as permissões do arquivo de origem;
-• r - Acrescenta arquivos dentro do pacote “tar”;
-• z - Modo de operação com o comando compactador “gzip”;
-• Z - Modo de operação com o comando compactador “compress”;
-• j - Modo de operação com o comando compactador “bzip2”.
-• f - Modo de operação com arquivos.
+possibilidades de uso:  
+• c - Compacta ou empacota dados em um novo arquivo;  
+• x - Extrai o conteúdo de um arquivo compactado;  
+• t - Lista o conteúdo de um arquivo compactado;  
+• v - Exibe na tela o que está sendo compactado ou descompactado;  
+• p - Preserva as permissões do arquivo de origem;  
+• r - Acrescenta arquivos dentro do pacote “tar”;  
+**• z - Modo de operação com o comando compactador “gzip”;**   
+**• Z - Modo de operação com o comando compactador “compress”;** 
+**• j - Modo de operação com o comando compactador “bzip2”.**  
+**• f - Modo de operação com arquivos.**
 
 **tar** - Sintaxe para compactar (com o compactador “gzip”):
 • Ex.: tar czf arquivo.tar.gz /etc/
