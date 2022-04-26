@@ -26,7 +26,7 @@ Além de controlarem a velocidade da transmissão de dados de um dispositivo rá
 
 Controla o direcionamento do fluxo de dados na condução da informação pela rede. Possibilita que os dados passem por vários pontos até serem entregues no destino.
 
-Controla rolas e escolhe os melhores caminhos. Leva em consideração a distancia mais curta, congestionamentos ou falhas ocasionadas pelo desaparecimento de um ponto de passagem na rota.
+Controla rotas e escolhe os melhores caminhos. Leva em consideração a distancia mais curta, congestionamentos ou falhas ocasionadas pelo desaparecimento de um ponto de passagem na rota.
 
 Esta camada possibilita a comunicação entre sub-redes.
 

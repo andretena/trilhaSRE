@@ -172,6 +172,126 @@ cada campo de informação, o caractere ‘:’ e exibe o primeiro campo de cada
 • O comando acima lista o conteúdo do diretório “/var” e envia a saída para o “awk” filtrar e exibir de
 forma customizada, somente o nome e o tamanho do arquivo.
 
+**- awk**
+    awk [ -F separador] [ -v var=valor ] [ 'programa' | arquivo-com-programa] [ arquivo...] 
+    1- diretamente pelo terminal. 
+        awk 'BEGIN {print "Meu Primeiro Script AWK"}'
+
+
+    2- No terminal, mas lendo arquivo separado.
+        echo 'Meu Primeiro Script AWS' > primeiro.txt
+        awk '{print}' primeiro.txt
+
+
+    3- No terminal, mas lendo um arquivo separado e um programa separado.
+        echo 'Meu Primeiro Script AWK' > primeiro.txt
+        echo '{print}' > programa
+        cat programa
+        {print}
+        awk -f programa primeiro.txt   
+        
+    4- Tudo num programa executável AWK
+        echo -e '#!/user/bin/awk -f \nBEGIN {print "Meu Primeiro Script AWK"}' > programa.awk
+        cat programa.awk
+            #!/user/nin/awk -f
+            ./programa.awk
+            Meu primeiro Script AWK
+                * obs: O -f na shebang ( O -f tem o f de file )
+
+    As variáveis no AWK possuem diversos segmentos, o AWK classifica cada coluna
+    como um número, sendo que o número zero é o proprio arquivo.
+                Exemplos
+        
+        $1      $2      $3      $4          $5
+       Cultivo  Produ   Fruto   Semente     Severidade
+
+       Declarando variaveis em awk;
+       awk 'BEGIN { nomedavariavel = "AWK é chato" ; print nomedavariavel }'
+
+       - Variaveis Internas
+            ARGV - Vetor contendo parametros passados para o programa
+            FILENAME - Nome do arquivo de entrada atual
+            FNR - Número do registro no arquivo atual
+            FS - Separador de campos. Seu padrão é branco e TAB
+            NR - Quantidade de registros do arquivo em processamento.
+            OFMT - Formato de saida para números. Seu padrão é %6g
+            OFS - Separador de campos na saida. Seu padrão é branco
+            ORS - Separador dos registros de saida. Seu padrão é newline
+            RS - Separador de registros de entrada. Seu padrão é newline.
+
+
+
+            https://www.youtube.com/watch?v=j0Qm6CzbNbg
+
+        awk '{print $3, $1}' tabela.txt  
+        awk 'OFS = ' "> \t\t" {print $2, $1}' original-langs.txt  
+
+## - sed
+O editor sed é utilizado em quase 100% da sua utilização para efetuar substituição e/ou alteração
+em um arquivo. Sua estrutura de utilização como comunmente ele é utilizado é:
+    sed [opcao(s)] regras/comandos [arquivo] [...]
+
+    sed - é o comando no terminal
+    opção - parametro que pode ser passado pro sed, e podemos passar mais de uma opção ou parametro
+    regras - Também podem ser chamados de comandos do sed, são ações realizadas no sed, exp substituição, imprimir, manipular de forma especifica etc....
+    arquivo - Na maioria dos casos precisamos informar um arquivo pro Sed, para que ele o manipule, o arquivo só não precisa ser informado
+              se o sed recebe os dados de saida de outro programa via canalizacao por pipe. E podemos passar mais de um arquivo pro Sed.
+
+              Exemplos
+              sed - n 'p' distros.txt
+
+              Gentoo
+              FreeBSD
+              GNU/Hurd
+              Slackware
+              VoidExherbo
+              Debian
+              Ubuntu
+
+              Lista Detalhada de todos os Comandos do Sed
+               = - imprime o número da linha e depois a linha;
+              
+              -n = - com supressão, só os número das linhas, usando o -n;
+               # - insere comentário (pode ser no prompt ou no arquivo);
+              
+              ! - inverte a lógica da regra (sed -n '1!p' distros.txt);
+              
+              ; - separa regras (sed -n '1p;2p' distros.txt);
+              
+              , - separa faixas de endereço (sed -n '4,6p' distros.txt);
+
+               q - sai da Execução do comando (sed '/G/q' distros.txt);
+
+              { } - inicia e finaliza bloco de regras (sed '/Void/{p;q;}' distros.txt);
+
+               s - substitui um trecho de texto por outro (sed -n '/S/{p;q;}' ou sed -n ‘/Sl/{p;q}’ );
+
+               y - traduz um caractere por outro ( sed 'y/Saoeb1/54038i/' distros.txt );
+
+               d - apaga a linha que possui o conteúdo ( sed '/Gentoo/d' distros.txt );
+              
+              i - insere um texto ANTES da linha que deseja (sed '/Gentoo/i Mint' distros.txt);
+
+              1i - insere na linha que deseja (sed '1i Mint' distros.txt ou sed ‘3i Mint’);
+
+              c - substitui parte de um arquivo por um texto, troca tudo da linha entre a a linha que
+              possui a palavra Gentoo até a linha que possui a palavra Slackware
+              ( sed '/Gentoo/,/Slackware/c 4 distros estavam em 4 linhas' distros.txt ) ;
+
+              As versões anteriores a 3.02a do GNU Sed, era necessário quebrar a linha ( \ ) pra que funcionasse essa regra c
+              (também com a e i)
+
+               a - insere um texto DEPOIS da linha que deseja (sed '/Gentoo/a Nova Distro' )
+              (sed '3aNova Distro' , similar ao i só que N + 1 );
+              
+              l - mostra um $ no final do conteúdo que é da IMPRESSÃO NORMAL
+              (sed l distros.txt);
+
+               n - vai para próxima linha (sed -n '1{n;p}' distros.txt) , obs.: o N maiúsculo faz o mesmo, no
+              entanto existe uma diferença, entenderemos melhor quando falarmos dos espaços padrão e reserva no
+              próximo capítulo. Assim como o P MAIÚSCULO que também imprime igual ao p minúsculo, mas a segunda
+              linha do ESPAÇO PADRÃO.;
+
 https://linuxconfig.org/learning-linux-commands-sed
 
 ## Compactadores - ZIP.
@@ -363,3 +483,163 @@ Listar os dispositivos IDE conectados  Ex.: ls -l /proc/ide
 Para informações sobre armazenamento
 fdisk -l
 
+## - top.
+
+Este utilitário exibe informações sobre os processos que estão sendo executados.
+
+    Algumas opções do comando
+    -c : mostra a linha de comando ao invés do nome do programa.
+    -d num : atualiza a tela após num segundos (o padrão é 5 segundos).
+    -h : exibe as opções do utilitário.
+    -p pid : mostra apenas o processo com o PID especificado
+    -v : mostra informações sobre o utilitário.
+    Teclas do aplicativo
+    espaço : atualiza imediatamente a tela.
+    h : ajuda.
+    k : encerra um processo (comando kill). Será solicitado o PID do processo e o sinal a ser enviado ao processo. O sinal 15 provoca o término normal do processo, enquanto o sinal 9 provoca o término forçado do processo. O padrão é o sinal 15 (SIGTERM).
+    M : ordena processos de acordo com o uso da memória.
+    n ou # : altera a quantidade de processos a serem apresentados na tela. É solicitada a entrada de um número. O valor padrão é zero que corresponde ao número de processos que a tela pode suportar.
+    P : ordena processos de acordo com o uso de CPU.
+    q : encerra o aplicativo.
+    r : altera a prioridade de um processo (comando renice). Será solicitado o PID do processo e o valor da nova prioridade a ser usada pelo processo (o valor padrão é 10). O usuário comum só pode informar um valor positivo maior que a prioridade atual. O root pode informar qualquer valor entre -20 (maior prioridade) e 19 (menor prioridade).
+    s : altera o tempo entre as atualizações de tela. É solicitada a entrada do tempo de espera em segundos. O valor zero corresponde a atualização contínua. O padrão é 5 segundos.
+    T : ordena processos de acordo com o tempo de execução.
+    u : exibe os processos de um determinado usuário. É solicitada a entrada do nome (login) do usuário. O padrão é branco (todos os usuários).
+    Exemplos
+    O comando
+    top -d 10
+
+    inicializa o aplicativo top e atualiza as informações apresentadas a cada 10 segundos.
+
+
+
+    Para ver apenas as informações do processo 1 (init), digite
+    top -p 1
+
+
+
+    Observações
+    Os comandos ps e pstree também exibem informações sobre os processos.
+    O aplicativo htop é similar ao top, mas oferece paginação dos processos (permite ver todos os processos do sistema) e diversas outras melhorias.
+
+## - htop
+
+O Htop é uma ferramenta visual e interativa (ela recebe interação até pelo mouse) para visualizar os processos e os recursos consumidos por eles. Na versão 2.0 o Htop se tornou multiplataforma, sendo suportado por Linux, FreeBSD, OpenBSD e MacOS.
+    https://www.treinaweb.com.br/blog/monitorando-processos-com-o-htop
+
+
+## - atop
+
+We’re all familiar with top, a real-time system monitor. Some prefer htop and previously, I mentioned iotop for use with storage read/write monitoring. Let’s looks at another popular tool for Linux server performance analysis: atop.
+    Advantages of atop
+    Atop is an ASCII full-screen performance monitor which can log and report the activity of all server processes. One feature I really like is that atop will stay active in the background for long-term server analysis (up to 28 days by default). Other advantages include:
+
+    Shows resource usage of ALL processes, even those that are closed/completed.
+    Monitors threads within processes & ignores unused processes.
+    Accumulates resource usage for all processes and users with the same name.
+    Highlights critical resources using colors (red).
+    Will add or remove columns as the size of the display window changes.
+    Includes disk I/O and network utilization.
+    Uses netatop kernel module to monitor TCP & UDP and network bandwidth.
+    Once atop is launched, by default, it will show system activity for CPU, memory, swap, disks, and network in 10-second intervals. In addition, for each process and thread, you can analyze CPU utilization, memory consumption, disk I/O, priority, username, state, and even exit codes.
+    https://haydenjames.io/use-atop-linux-server-performance-analysis/
+
+        sing atop – system & process monitor
+    A good place to start would be to read the man pages:
+
+    man atop
+    Other useful commands:
+
+    Launch with average-per-second total values:
+
+    atop -1
+    Launch with active processes only:
+
+    atop -a
+    Launch with command line per process
+
+    atop -c
+    Launch with disk info
+
+    Datadog
+    atop -d
+    Launch with memory info
+
+    atop -m
+    Launch with network info
+
+    atop -n
+    Launch with scheduling info
+
+    atop -s
+    Launch with various info (ppid, user, time)
+
+    atop -v
+    Launch with individual threads
+
+    atop -y
+    Once atop is running, press the following shortcut keys to sort processes:
+
+    a – sort in order of most active resource.
+    c – revert to sorting by CPU consumption (default).
+    d – sort in order of disk activity.
+    m – sort in order of memory usage
+    n – sort in order of network activity
+    
+
+    Guide to reading atop reports/logs
+    By default after install the atop daemon writes snapshots to a compressed log file (eg. /var/log/atop/atop_20140813). These log files can be read using:
+
+    atop -r /full/path/to/atop/log/file
+    Once you open a log file (e.g., atop -r /var/log/atop/atop_20140813), use t to go forward in 10-minute intervals and T to go back. You can analyze specific times by pressing b then entering the time. The above shortcut keys also work in this mode… a, c, d, m,n.
+
+    You can use shortcuts with atopsar. For example, using the flag “-c 30 5” with atopsar will generate a report for current CPU utilization for 5 minutes (ten times with intervals of 30 seconds):
+
+    atopsar -c 30 5
+    Using the flag -A with return all available reports.
+
+    atopsar -A
+    But you can limit this to a specific time window using beginning “-b” and end “-e” flags:
+
+    atopsar -A -b 11:00 -e 11:15
+    As you can see, it’s easy to use atop for Linux server performance analysis effectively.
+
+
+
+## - lsof
+
+Este aplicativo lista os arquivos abertos (em uso) pelos processos. O termo lsof significa list open files.
+
+    Algumas opções do comando
+    −−help : mostra as opções do aplicativo.
+    -i [endereço] [tipo] : mostra a lista dos arquivos abertos que estão associados ao endereço de Internet especificado. Se nenhum endereço é especificado, o comando fornece a lista todos os arquivos abertos associados aos endereços de internet. Pode-se também definir um tipo de comunicação como porta,  protocolos IPv4 e IPv6 e tipo de socket.
+    -s : mostra o tamanho do arquivo.
+    -p PID : mostra os arquivos abertos do processo com o PID informado.
+    -u usuário : mostra apenas informações de um determinado usuário.
+    -U : lista os sockets Unix.
+    Exemplos
+    Para ver a lista de todos os arquivos abertos pelos processos em execução no sistema, entre com
+    lsof
+
+    Para ver apenas os processos do usuário aluno, digite
+    lsof -u aluno
+
+    Se você quiser ver apenas a quantidade de aquivos abertos do usuário aluno, use o comando wc para contar a quantidade de linhas na resposta (subtrai 1 da resposta para ignorar o cabeçalho).
+
+    lsof -u aluno | wc -l
+
+    Para ver os arquivos abertos pelo processo com PID 3761, basta digitar
+    lsof -p 3761
+
+    Para listar os processos relacionados com a porta 80, entre com
+    lsof -i :80
+
+    Para obter a lista dos arquivos associados com o protocolo IPv4, entre com
+    lsof -i 4
+
+    Para listar os processos com socket UNIX, digite
+    lsof -i -U
+
+    Observações
+    O comando fuser identifica os processos que estão usando um determinado arquivo.
+    O comando stat fornece informações sobre arquivos.
